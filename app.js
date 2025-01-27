@@ -21,11 +21,13 @@ if (process.env.NODE_ENV === 'local' || typeof process.env.NODE_ENV === 'undefin
 	const http = require('http');
 	server = http.createServer(app);
 } else {
-	const options = {
-		key: fs.readFileSync("/path/to/your/ssl/key"),
-		cert: fs.readFileSync("/path/to/your/ssl/cert")
-	};
-	server = require('https').Server(options, app);
+	// const options = {
+	// 	key: fs.readFileSync("/path/to/your/ssl/key"),
+	// 	cert: fs.readFileSync("/path/to/your/ssl/cert")
+	// };
+	server = require('https').Server(
+		// options,
+		app);
 }
 
 app.use(cookieParser());
