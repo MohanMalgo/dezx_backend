@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { create_user, contactUs, SubscribeUs, imgup, carear, getUserMeta, getBlogs, getPage, getAllBlogs, getBlogsCategory, getCategoryDetails, getJob, siteMap, sitemapcategory, malgopreDATA, testLeads, loginadin, signUp, getProjects, getSingleProject, oAuth, signin, productsFormUpdate, getUser, logout, getProjectsByEmail, createProjectByUser, withdrawDPcoin, getCompetitions, abcd, getSingleCompetitions, createCompetitions, addApplicantToCompetition, withdraw, purchaseCourses, purchaseCourseuser, confirmPurchase, verifyOTP, regenerateOTP, getUserOTP, getCompetitionsByEmail } = require('../../controllers/usercontroller');
+const { create_user, contactUs, SubscribeUs, imgup, carear, getUserMeta, getBlogs, getPage, getAllBlogs, getBlogsCategory, getCategoryDetails, getJob, siteMap, sitemapcategory, malgopreDATA, testLeads, loginadin, signUp, getProjects, getSingleProject, oAuth, signin, productsFormUpdate, getUser, logout, getProjectsByEmail, createProjectByUser, withdrawDPcoin, getCompetitions, abcd, getSingleCompetitions, createCompetitions, addApplicantToCompetition, withdraw, purchaseCourses, purchaseCourseuser, confirmPurchase, verifyOTP, regenerateOTP, getUserOTP, getCompetitionsByEmail, userCompetitions } = require('../../controllers/usercontroller');
 
 
 const multer = require('multer');
@@ -62,9 +62,9 @@ module.exports.userRoutes = router
     .post('/addApplicantToCompetition', verifyUserAuthToken, addApplicantToCompetition)
 
     .post('/withdraw', verifyUserAuthToken, withdraw)
-    .post('/getCompetitionsByEmail',verifyUserAuthToken, getCompetitionsByEmail)
+    .post('/getCompetitionsByEmail', verifyUserAuthToken, getCompetitionsByEmail)
 
-
+    .post('/userCompetitions', verifyUserAuthToken, userCompetitions)
 
 
 

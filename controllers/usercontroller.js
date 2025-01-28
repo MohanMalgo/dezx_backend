@@ -1,6 +1,6 @@
 
 const { encrypt, getIPAddress, decrypt, bcrypt, bcryptCompare, getImageDimensions, uploadAssetInS3, uploadAssetInCloudinary, generateReferralCode, compareCredentials } = require('../helpers/common');
-const { adduser, contactUs, cerateTags, blogs, category, job, SubscribeUs, sitemap, sitemapcategory, testleads, projects, userProject, Competition, user, depositWithdraw, feemanagement } = require("../helpers/collections");
+const { adduser, contactUs, cerateTags, blogs, category, job, SubscribeUs, sitemap, sitemapcategory, testleads, projects, userProject, Competition, user, depositWithdraw, feemanagement, usercompetion } = require("../helpers/collections");
 const { findOne, deleteOne, findWithCount, findOneAndUpdate, find, create, updateMany, updateOne } = require('../helpers/query-helper');
 const sendResponse = require('../helpers/response');
 
@@ -608,10 +608,30 @@ exports.addApplicantToCompetition = async (req, res) => {
 exports.userCompetitions = async (req, res) => {
     try {
         const val = req.body;
-    } catch (error) {
 
+        if (!val.categories || !val.companyname || !val.contestName || !val.deadline || !val.email || !val.fees || !val.phoneNumber || !val.taskDescription || !val.totalPrice) {
+            return res.status(400).json({ message: "Missing required fields." });
+        }
+
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailRegex.test(val.email)) {
+            return res.status(400).json({ message: "Invalid email format." });
+        }
+
+        const a = await usercompetion.create(val);
+
+        res.status(201).json({
+            message: "Competition created successfully!",
+            data: a, 
+        });
+    } catch (error) {
+        console.error(error);  
+        res.status(500).json({
+            error: "An error occurred while creating the competition",
+            errMsg: error.message,
+        });
     }
-}
+};
 
 exports.purchaseCourseuser = async (req, res) => {
     try {

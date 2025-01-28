@@ -14,11 +14,11 @@ const adminSchema = new mongoose.Schema({
     "contestName": { type: String, default: "", useCreateIndex: true },
     "phoneNumber": { type: String, default: "", useCreateIndex: true },
 
-    "fees": { type: Boolean, default: false },
+    "fees": { type: Number, default: 0 },
 
-    "status": { type: Boolean, default: true },
+    "status": { type: Boolean, default: false },
 
-    "categories": { type: Array, default: "" },
+    "categories":  { type: [String], default: [] },
 
     "deadline": { type: String, default: "" },
     "taskDescription": { type: String, default: "" },
