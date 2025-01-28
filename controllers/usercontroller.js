@@ -615,21 +615,15 @@ exports.userCompetitions = async (req, res) => {
 
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         if (!emailRegex.test(val.email)) {
-            return res.status(400).json({ message: "Invalid email format." });
+            return res.json({ status: false, message: "Invalid email format." });
         }
 
         const a = await usercompetion.create(val);
-
-        res.status(201).json({
-            message: "Competition created successfully!",
-            data: a, 
-        });
+        return res.json({ status: true, message: "Competition created successfully!",data: a, });
+      
     } catch (error) {
         console.error(error);  
-        res.status(500).json({
-            error: "An error occurred while creating the competition",
-            errMsg: error.message,
-        });
+        return res.json({ status: true, message: err.message })
     }
 };
 
