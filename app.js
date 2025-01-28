@@ -17,18 +17,18 @@ require('./config/db');
 app.use(helmet());
 
 let server;
-if (process.env.NODE_ENV === 'local' || typeof process.env.NODE_ENV === 'undefined') {
+// if (process.env.NODE_ENV === 'local' || typeof process.env.NODE_ENV === 'undefined') {
 	const http = require('http');
 	server = http.createServer(app);
-} else {
+// } else {
 	// const options = {
 	// 	key: fs.readFileSync("/path/to/your/ssl/key"),
 	// 	cert: fs.readFileSync("/path/to/your/ssl/cert")
 	// };
-	server = require('https').Server(
+	// server = require('https').Server(
 		// options,
-		app);
-}
+		// app);
+// }
 
 app.use(cookieParser());
 app.use(cors());
@@ -51,6 +51,17 @@ app.use((req, res, next) => {
 	res.clearCookie('__cfduid');
 	next();
 });
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(trimRequest.all);
+
+
+
+
+
+
 
 app.get('/', (_req, res) => {
 	res.status(200).json({
