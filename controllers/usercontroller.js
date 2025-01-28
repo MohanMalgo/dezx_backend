@@ -544,7 +544,7 @@ exports.getCompetitionsByEmail = async (req, res) => {
     try {
         const { id } = req.body;
         const email = req.userAddress;
-        const competitions = await Competition.find({ _id: id }).sort({ _id: -1 });
+        const competitions = await Competition.find().sort({ _id: -1 });
         console.log("competitions", competitions)
         if (competitions.length > 0) {
             // Filter competitions where applicants' email is "mohan@gmail.com"
