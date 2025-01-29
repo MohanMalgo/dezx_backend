@@ -619,10 +619,10 @@ exports.userCompetitions = async (req, res) => {
         }
 
         const a = await usercompetion.create(val);
-        return res.json({ status: true, message: "Competition created successfully!",data: a, });
-      
+        return res.json({ status: true, message: "Competition created successfully!", data: a, });
+
     } catch (error) {
-        console.error(error);  
+        console.error(error);
         return res.json({ status: true, message: err.message })
     }
 };
@@ -671,6 +671,7 @@ exports.purchaseCourseuser = async (req, res) => {
 exports.confirmPurchase = async (req, res) => {
     try {
         const { name, razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body
+        const email = req.userAddress;
         const order = await depositWithdraw.findOne({ orderId: razorpayOrderId });
         if (!order) {
             return res.status(400).json({
@@ -695,6 +696,7 @@ exports.confirmPurchase = async (req, res) => {
                 type: "Deposit"
             }
         );
+        await user.updateOne({ email: email }, { $inc: { dpCoin: order.amount, withdrableDPcoin: order.amount } })
         res.status(200).json({
             status: true,
             message: "Payment verified successfully"
