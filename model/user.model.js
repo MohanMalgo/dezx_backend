@@ -25,6 +25,7 @@ const adminSchema = new mongoose.Schema({
     "notifications": { type: Boolean, default: true },
     'withdrableDPcoin': { type: Number, default: 0 },
     "withdrawStatus": { type: Boolean, default: false },
+    "refbonus": { type: Number, default: 0 },
     // "referrer": {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "user"

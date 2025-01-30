@@ -722,7 +722,24 @@ exports.abcd = async (req, res) => {
 }
 
 
+exports.getRefList = async (req, res)=>{
+    try {
+        const email = req.userAddress;
+        const users = await user.findOne({email:email},{referralCode:1,refbonus:1})
+        console.log("users",users)
+        const refList = await user.find({referredBy:users.referralCode},{name:1,email:1,referralCode:1})
+        console.log("refList",refList)
 
+        if (users) {
+            return res.json({ status: true, data: users,ref:refList });
+        } else {
+            return res.json({ status: false, message: "No data found" });
+        }
+    }
+    catch (error) {
+        return res.json({ status: false, message: "Something went wrong" });
+    }
+}
 
 
 
